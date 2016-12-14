@@ -1,15 +1,65 @@
-def square(x):
-    square = x * x
-    return square
+import math
+import turtle
+from collections import Counter
 
-
-def file_to_string(file_name):
-    text_file = open(file_name, 'r', encoding = 'utf-8')
-    text_string = text_file.read().replace('\n', '')
+def file_to_string(f_name):
+    text_file = open(f_name, 'r')
+    text = text_file.read()
     text_file.close()
-    return text_string
+    text = text.lower()
+    return text
+
+
+def strip_chars(string):
+    text = file_to_string(string)
+    stripped_text = ''
+    for char in text:
+        if 96 < ord(char) < 122:
+            stripped_text += char
+        else:
+            stripped_text += ' '
+            
+    return stripped_text
+
+
+def string_to_word_list(string):
+    text = strip_chars(string)
+    text = ' '.join(text.split())
+    words = text.split()
+    return words
+            
+                  
+def word_dic_freq(string):
+    words = string_to_word_list(string)
+    word_freq = Counter(words)
+    return word_freq
+
+
+def graph_words(tr, dic):
+    data = word_dic_freq(dic)
+    x = 0
+    for key in data:
+        y = data[key] / 10
+        tr.goto(x, y)
+        tr.dot(3)
+        x += 1
+        
+    
+
     
     
+    
+    
+    
+    
+    
+        
+        
 def main():
-    print(file_to_string('C:/Users/banta/coding/king_james.txt'))
+    tr = turtle.Turtle()
+    tr.hideturtle()
+    tr.speed()
+    graph_words(tr, 'C:/Users/Xannatas/Coding/Python/king_james.txt')
+    screen = tr.getscreen()
+    screen.exitOnClick()
 main()
